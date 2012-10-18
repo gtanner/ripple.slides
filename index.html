@@ -1,0 +1,493 @@
+<!doctype html>  
+<html lang="en">
+	
+	<head>
+		<meta charset="utf-8">
+		
+		<title>Ripple: Who? Why? What? How?</title>
+
+		<meta name="description" content="A walkthrew of the Ripple Mobile Environment Emulator">
+		<meta name="author" content="Gord Tanner">
+
+		<meta name="apple-mobile-web-app-capable" content="yes" />
+		<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+		
+		<link href='http://fonts.googleapis.com/css?family=Lato:400,700,400italic,700italic' rel='stylesheet' type='text/css'>
+		
+		<link rel="stylesheet" href="css/reveal.css">
+		<link rel="stylesheet" href="css/theme/default.css" id="theme">
+
+		<link rel="stylesheet" href="lib/css/zenburn.css">
+
+        <!-- accel stuff -->
+        <link rel="stylesheet" href="accel/rpg.css" type="text/css" media="screen" title="no title" charset="utf-8">
+        <!-- accel stuff -->
+	</head>
+	
+	<body>
+		
+		<div class="reveal">
+
+			<div class="slides">
+
+                <section>
+                    <h1>Ripple</h1>
+                    <h2>Who? Why? What? How?</h2>
+                    <h3>Gord Tanner, Code Poet</h3>
+                    <h3>(Research In Motion)</h3>
+                    <h3>@gordtanner</h3>
+                </section>
+
+                <section>
+                    <h1>Who?</h1>
+                    <img src="img/who.jpeg" alt="" />
+                </section>
+
+                <section>
+                    <img src="img/tinyhippos.png" />
+                </section>
+
+                <section>
+                    <img src="img/rim.png" />
+                </section>
+
+                <section>
+                    <h2>The usual suspects</h2>
+                    <img src="img/suspect.png" />
+                    <ui>
+                    	<li>Dan Silivestru (@confusement)</li>
+                    	<li>Brent Lintner (@brentlintner)</li>
+                    	<li>Gord Tanner (@gordtanner)</li>
+                    </ui>
+                </section>
+
+                <section>
+                    <img src="img/awesome.png" />
+                </section>
+
+                <section>
+                    <img src="img/ripplebot.png" />
+                	<h1>Open Sourced</h1>
+                    <a href="http://github.com/blackberry/Ripple-UI">github.com/blackberry/Ripple-UI</a>
+                </section>
+
+                <section>
+                    <img src="img/apache_feather.png" />
+                    <img src="img/fuckyeah.jpeg" />
+                </section>
+
+                <section>
+                    <h2>Apache Cordova</h2>
+                    <img src="img/welcome.jpg" />
+                </section>
+
+                <section>
+                    <h1>Why?</h1>
+                    <img src="img/questions.jpeg" alt="" />
+                </section>
+
+                <section>
+                    <img src="img/jil.png" />
+                </section>
+
+                <section>
+                    <h3>OMFG</h3>
+                    <img src="img/fuckyeahcanada.gif" style="height: 100%;" />
+                </section>
+
+                <section>
+                    <h2>Edit, Refresh, Continue?</h2>
+                	<img src="img/no.jpg" alt="" />
+                </section>
+
+                <section>
+                    <h2>Web Inspector?</h2>
+                	<img src="img/no.jpg" alt="" />
+                </section>
+
+                <section>
+                    <h2>Being awesome?</h2>
+                	<img src="img/no.jpg" alt="" />
+                </section>
+
+                <section data-state="">
+                    <img src="img/wtf.png" style="height: 99%;" />
+                </section>
+                
+                <section>
+                    <h1>What?</h1>
+                    <img src="img/what.jpeg" alt="" />
+                </section>
+            
+                <section>
+                	<img src="img/ripplelogo_large.png" alt="" />
+                </section>
+
+                <section>
+                    <h2>introducing Ripple</h2>
+                    <p><img width="800" src="img/rippleripple.png"/></p>
+                </section>
+
+                <section>
+                    <h2>Runs in the browser</h2>
+                    <h2>Chrome Extension</h2>
+                </section>
+
+                <section data-state="mapInit">
+                    <h2>Where am I?</h2>
+                        <img id="map-img" width="300px" src="img/dragon_4.png"/><br>
+                        <p id="dragon-attribution" style="font-size:8px;" class="irrelevant">http://magicandmalarky.files.wordpress.com/2011/01/dragon_4.png</p>
+                    <button onclick="updateMap();" id="update-map" class="button">update map</button>
+                        <script>
+                            function displayMap(info) {
+                                var img = document.getElementById("map-img");
+                                img.src = "http://maps.googleapis.com/maps/api/staticmap?center=" + 
+                                    info.coords.latitude + "," + 
+                                    info.coords.longitude + 
+                                    "&zoom=12&size=350x350&sensor=false&markers=color:blue%7C" + 
+                                    info.coords.latitude + "," + 
+                                    info.coords.longitude;
+
+                                document.getElementById("dragon-attribution").setAttribute("class", "irrelevant"); 
+                            }
+                        </script>
+                        <div class="script-container">
+                            <script>
+function win(info) {
+    console.log(info);
+    displayMap(info);
+}
+
+function fail(error) {
+    console.log("well... that's embarrassing");
+}
+
+function updateMap() {
+    var geo = navigator.geolocation;
+    geo.getCurrentPosition(win, fail)
+};
+                            </script>
+                </section>
+
+                <section data-state="accelinit">
+                    <h3>Accelerometer</h3>
+                    <div id="gamecontainer" style="margin: 0 auto">
+                        <div id="stage" class="theme">
+                            <div id="header">
+                                <h2>PhoneGap</h2>
+                                <h3>Accelerometer Demo</h3>
+                                <div class="btn" onclick="game.watchAccel()">Start</div>
+                                <div class="btn" onclick="location.reload()">Reset</div>
+                                <div id="info">
+                                    <div id="hp1" class="hp"></div>
+                                    <div id="hp2" class="hp"></div>
+                                    <div id="hp3" class="hp"></div>
+                                    <div id="hp4" class="hp"></div>
+                                    <div id="hp5" class="hp"></div>
+                                    <div id="score"></div>
+                                </div>
+                            </div>
+                            <div id="filter"></div>
+                            <div id="container"></div>
+                            <div id="edge"></div>
+                            <div id="actionLayer"></div>
+                            <div id="hero" class="heroF" ></div>
+                        </div>
+                    </div>
+                </section>
+
+                <section>
+                    <h3>image capture</h3>
+                    <div id="imagecontainer" style="">
+                        <img id="captureImg" width="300px" src="img/lens.jpg"/>
+                        <br />
+                        <button onclick="takePic();" id="get-pic" class="button">Take Pic</button>
+                    </div>
+                        <script>
+                            function captureWin(mediaFiles) {
+                                var img = document.getElementById("captureImg");
+                                
+                                img.src = mediaFiles[0].fullPath;
+                            }
+
+                            function captureFail(error) {
+                                console.log("well... that's embarrassing");
+                            }
+
+                            function takePic() {
+                                var capture = navigator.device.capture;
+                                capture.captureImage(captureWin, captureFail);
+                            }
+                        </script>
+                </section>
+
+                <section>
+                    <h2>what about plugins?!?!</h2>
+<pre class="script">
+function pluginWin(info) {
+    alert(info.stuff);
+}
+
+function pluginFail(error) {
+    alert(error.msg);
+}
+
+function callMyAwesomePlugin() {
+    var myPlugin = navigator.myPlugin;
+    myPlugin.myCoolMethod(pluginWin, pluginFail, {});
+}
+</pre>
+                        <script>
+function pluginWin(info) {
+    alert(info.stuff);
+}
+
+function pluginFail(error) {
+    alert(error.msg);
+}
+
+function callMyAwesomePlugin() {
+    var myPlugin = navigator.myPlugin;
+    myPlugin.myCoolMethod(pluginWin, pluginFail, {});
+}
+                        </script>
+                    <button onclick="callMyAwesomePlugin();" id="call-plugin" class="button">Call My Plugin</button>
+
+                </section>
+                <section>
+                    <h1>How?</h1>
+                    <img src="img/pony-awesome.png" alt="" />
+                </section>
+
+                <section>
+                    <h1>0.0.1</h1>
+                </section>
+
+                <section data-state="">
+                    <img src="img/fail.png" style="height: 99%;" />
+                </section>
+
+                <section data-state="">
+                    <img src="img/oop.png" style="height: 99%;" />
+                </section>
+
+                <section>
+                	<h2>Javascript !== Java</h2>
+                </section>
+
+                <section>
+                    <h1>#fail</h1>
+<pre class="script">
+tinyHippos.foo = function () {
+    this.bar = “value”;
+    this._password = “shhh”;
+};
+
+tinyHippos.foo.prototype.baz = function (thingie) {
+    if (!thingie instanceof tinyHippos.Thingie) {
+        throw “this isn’t a thingie”;
+    }
+    console.log(this._password);
+};
+
+tinyHippos.core.foo = new tinyHippos.foo();
+</pre>
+                </section>
+
+                <section>
+                	<img src="img/learn.png" alt="" />
+                </section>
+
+                <section>
+                    <h2>Hail to the king baby</h2>
+                	<img src="img/crockford.png" alt="" />
+                </section>
+
+                <section>
+                    <h1>Injection</h1>
+
+                    <pre class="script">
+
+
+document.open();
+document.write("All your dreams go here");
+
+window.setTimeout(function () {
+    document.close();
+}, 100);
+
+                    </pre>
+                
+                </section>
+
+                <section>
+                    <h2>Bootstrapping</h2>
+
+                    <pre class="script">
+
+
+var fooodOrder = jWorkflow.order(garlicChicken)
+                          .andThen(whiteRice)
+                          .andThen(wontonSoup)
+                          .andThen(cookiesFortune)
+                          .andThen(noAndThen)
+                          .andThen(noAndThen)
+                          .andThen(noAndThen)
+                          .andThen(noAndThen);
+
+fooodOrder.start();
+                    </pre>
+                
+                </section>
+
+                <section>
+                    <h2>Bootstrapping</h2>
+
+                    <pre class="script">
+
+jWorkflow.order(function () {
+    return 1;
+}).andThen(function (baton, prev) {
+    baton.take();
+    
+    setTimeout(function () {
+        baton.pass(prev + 1);
+    }, 1000);
+});
+
+                    </pre>
+                <a href="http://github.com/tinyhippos/jWorkflow">github.com/tinyhippos/jWorkflow</a>
+
+                </section>
+
+                <section>
+                <h1>Modules</h1>
+<pre class="script">
+
+var private = 1;
+
+function alsoPrivate() { return 1; }
+
+module.exports = {
+    public: 2,
+    alsoPublic: function () { return 2; }
+}
+
+</pre>
+                </section>
+
+                <section>
+                    <h1>Sugar</h1>
+<pre >
+
+define("module", function (require, module, exports) {
+</pre>
+<pre class="script">
+
+    var private = 1;
+
+    function alsoPrivate() { return 1; }
+
+    module.exports = {
+        public: 2,
+        alsoPublic: function () { return 2; }
+    }
+
+</pre>
+<pre>
+});
+</pre>
+                </section>
+
+                <section>
+                	<h2>Platform Definitions</h2>
+                    <pre class="script">
+
+module.exports = {
+    id: "atari",
+    version: "1.0.0",
+    name: "Atari 2600",
+
+    initialize: function () {
+        //stuff to warm up the platform
+    },
+
+    objects: {
+        atari: {
+            path: "atari/1.0.0/core",
+            children: {
+                screen: {
+                    path: "atari/1.0.0/screen"
+                }
+            }
+        }
+    }
+};
+
+                    </pre>
+                </section>
+
+                <section>
+                	<h1>Loading Platforms</h1>
+<pre class="script">
+
+var builder = require('ripple/platform/builder'),
+    atari = require('ripple/platform/atari/spec');
+
+builder.build(atari.objects).into(window);
+atari.initialize();
+
+</pre>
+                </section>
+
+                <section>
+                	<h1>Teh new hotness</h1>
+                    Not released yet!?!?! #slackers
+<pre class="script">
+
+me:~$ npm install -g ripple
+me:~$ cd project
+me:~/project/$ ripple init
+me:~/project/$ ripple emulate
+</pre>
+                </section>
+
+                <section>
+                	<img src="img/thanks.jpeg" alt="" />
+                    <h2>@gordtanner</h2>
+                </section>
+			</div>
+			
+		</div>
+
+		<script src="lib/js/head.min.js"></script>
+		<script src="js/reveal.min.js"></script>
+
+		<script>
+			Reveal.initialize({
+				controls: true,
+				progress: true,
+				history: true,
+				
+				theme: Reveal.getQueryHash().theme || 'simple', // available themes are in /css/theme
+				transition: Reveal.getQueryHash().transition || 'zoom', // default/cube/page/concave/zoom/linear/none
+
+				dependencies: [
+					{ src: 'lib/js/highlight.js', async: true, callback: function() { window.hljs.initHighlightingOnLoad(); } },
+					{ src: 'lib/js/classList.js', condition: function() { return !document.body.classList; } },
+					{ src: 'lib/js/showdown.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+					{ src: 'lib/js/data-markdown.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+					{ src: 'plugin/zoom-js/zoom.js', condition: function() { return !!document.body.classList; } },
+					{ src: '/socket.io/socket.io.js', async: true, condition: function() { return window.location.host === 'localhost:1947'; } },
+					{ src: 'plugin/speakernotes/client.js', async: true, condition: function() { return window.location.host === 'localhost:1947'; } },
+                    { src: 'accel/cordova.playbook.js', async: false},
+                    { src: 'accel/main.js', async: false }
+				]
+			});
+			
+            Reveal.addEventListener("accelinit", function () {
+                game.init();
+            });
+		</script>
+	</body>
+</html>
